@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
-import { HomeComponent } from 'src/app/pages/home/home.component';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ProductListComponent {
   displayedProducts: Product[] = []; // Products to display on the current page
   currentPage = 1; // Current page number
   pageSize = 5; // Number of products per page
-
+  private subscription: Subscription = new Subscription();
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class ProductListComponent {
   }
 
   fetchProducts(): void {
-    this.productService.getProducts().subscribe(
+    const productSubscripton = this.productService.getProducts().subscribe(
       (data) => {
         this.products = data.products; // Set the full product list
         this.updateDisplayedProducts(); // Initialize displayed products
@@ -30,6 +30,7 @@ export class ProductListComponent {
         console.error('Error fetching products:', error);
       }
     );
+    this.subscription.add(productSubscripton);
   }
 
   updateDisplayedProducts(): void {
@@ -41,5 +42,8 @@ export class ProductListComponent {
   onPageChange(page: number): void {
     this.currentPage = page;
     this.updateDisplayedProducts();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -19,10 +19,16 @@ export class ProductService {
   getSharedProducts() {
     return this.products$.asObservable();
   }
-
   fetchAndShareProducts(): void {
     this.getProducts().subscribe((data) => {
       this.products$.next(data.products);
     });
+  }
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/categories`);
+  }
+
+  getProductsByCategory(category: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/category/${category}`);
   }
 }
