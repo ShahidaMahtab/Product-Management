@@ -1,0 +1,21 @@
+<div class="container">
+  <div *ngIf="displayedProducts.length > 0; else noProducts">
+    <ul>
+      <li *ngFor="let product of displayedProducts">
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.description }}</p>
+        <p><strong>Price: </strong>\${{ product.price }}</p>
+      </li>
+    </ul>
+    <!-- Pagination Component -->
+    <nz-pagination
+      [nzPageIndex]="currentPage"
+      [nzPageSize]="pageSize"
+      [nzTotal]="products.length"
+      (nzPageIndexChange)="onPageChange($event)"
+    ></nz-pagination>
+  </div>
+  <ng-template #noProducts>
+    <p>No products found!</p>
+  </ng-template>
+</div>
