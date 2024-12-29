@@ -5,7 +5,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [ProductsComponent, ProductListComponent],
