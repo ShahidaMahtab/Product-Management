@@ -32,6 +32,20 @@ export class ProductListComponent {
     );
     this.subscription.add(productSubscripton);
   }
+  /*   filterByCategory(category: string): void {
+    if (category === '') {
+      // Fetch all products if no category is selected
+      this.fetchProducts();
+    } else {
+      this.productService.getProductsByCategory(category).subscribe(
+        (data) => {
+          this.products = data;
+          this.updateDisplayedProducts();
+        },
+        (error) => console.error('Error filtering products:', error)
+      );
+    }
+  } */
 
   updateDisplayedProducts(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
